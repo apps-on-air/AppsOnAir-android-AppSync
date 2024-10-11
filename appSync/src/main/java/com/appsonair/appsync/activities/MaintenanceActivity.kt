@@ -32,11 +32,11 @@ class MaintenanceActivity : AppCompatActivity() {
 
                 val maintenanceData = jsonObject.getJSONObject("maintenanceData")
                 if (maintenanceData.toString() != "{}") {
-                    val title = maintenanceData.getString("title") ?: ""
-                    val description = maintenanceData.getString("description") ?: ""
-                    val image = maintenanceData.getString("image") ?: ""
-                    val textColorCode = maintenanceData.getString("textColorCode") ?: ""
-                    val backgroundColorCode = maintenanceData.getString("backgroundColorCode") ?: ""
+                    val title = maintenanceData.optString("title", "")
+                    val description = maintenanceData.optString("description", "")
+                    val image = maintenanceData.optString("image", "")
+                    val textColorCode = maintenanceData.optString("textColorCode", "")
+                    val backgroundColorCode = maintenanceData.optString("backgroundColorCode", "")
 
                     if (backgroundColorCode.isNotEmpty()) {
                         linearLayout.setBackgroundColor(
