@@ -1,4 +1,4 @@
-package com.appsonair.appsonair_android_appsync
+package com.example.appsonair_android_appsync
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

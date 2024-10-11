@@ -1,4 +1,4 @@
-package com.appsonair.appsonair_android_appsync
+package com.example.appsonair_android_appsync
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
