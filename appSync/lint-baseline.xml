@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues name="AGP (8.5.2)" by="lint 8.5.2" client="gradle" dependencies="false" format="6"
+    type="baseline" variant="all" version="8.5.2">
+
+    <issue errorLine1="    android:background=&quot;#F1F4F7&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#F1F4F7` with a theme that also paints a background (inferred theme is `@style/Theme_AppCompat_Light_NoActionBar`)">
+        <location column="5" file="src/main/res/layout/activity_app_update.xml" line="6" />
+    </issue>
+
+    <issue errorLine1="    android:background=&quot;@color/maintenance_bg_color&quot;"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `@color/maintenance_bg_color` with a theme that also paints a background (inferred theme is `@style/Theme_AppCompat_Light_NoActionBar`)">
+        <location column="5" file="src/main/res/layout/activity_maintenance.xml" line="7" />
+    </issue>
+
+    <issue id="IconLocation"
+        message="Found bitmap drawable `res/drawable/maintenance_icon.png` in densityless folder">
+        <location file="src/main/res/drawable/maintenance_icon.png" />
+    </issue>
+
+    <issue id="RtlEnabled"
+        message="The project references RTL attributes, but does not explicitly enable or disable RTL support with `android:supportsRtl` in the manifest">
+        <location file="src/main/AndroidManifest.xml" />
+    </issue>
+
+</issues>
