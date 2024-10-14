@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdk 24
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
         android {
             buildConfigField 'String', 'BASE_URL', BASE_URL
             buildConfigField 'String', 'CDN_BASE_URL', CDN_BASE_URL
@@ -57,7 +57,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.appsonair'
                 artifactId = 'appsync'
-                version = '1.0.0'
+                version = '1.0.1'
             }
         }
     }
