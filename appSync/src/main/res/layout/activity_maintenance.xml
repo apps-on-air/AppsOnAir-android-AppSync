@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/maintenance_bg_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="36dp">
+
+    <ImageView
+        android:id="@+id/img_icon"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/maintenance_icon"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/txt_title_maintain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center"
+        android:text="@string/the_app_is_under_maintenance"
+        android:textAlignment="center"
+        android:textColor="@color/maintenance_text_color"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_des_maintain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:textAlignment="center"
+        android:textColor="@color/maintenance_text_color"
+        android:textSize="14sp" />
+</LinearLayout>
