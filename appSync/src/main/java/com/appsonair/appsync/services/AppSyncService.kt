@@ -121,10 +121,12 @@ class AppSyncService {
             })
         }
 
+        @JvmStatic
+        @JvmOverloads
         fun sync(
             context: Context,
-            callBack: UpdateCallBack? = null,
-            options: Map<String, Any> = emptyMap()
+            options: Map<String, Any> = emptyMap(),
+            callBack: UpdateCallBack? = null
         ) {
             val applicationId: String = CoreService.getAppId(context)
             appId = applicationId
