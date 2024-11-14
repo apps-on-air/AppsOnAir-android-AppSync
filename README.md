@@ -66,6 +66,12 @@ dependencyResolutionManagement {
 
 ## Example :
 
+Follow below step to use default UI for app update.
+
+```sh
+AppSyncService.sync(this)
+```
+
 Keep the "showNativeUI" true, if you want to display the native(default) UI for app updates. Conversely, if you want to display your custom UI for it, it will be set to false.
 
 You can show your custom UI for app update in onSuccess() method.
