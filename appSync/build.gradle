@@ -4,6 +4,9 @@ plugins {
     id("maven-publish")
 }
 
+group = "com.appsonair"
+version = "1.0.2"
+
 android {
     namespace 'com.appsonair.appsync'
     compileSdk 34
@@ -28,14 +31,19 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
     lint {
         baseline = file("lint-baseline.xml")
+    }
+    publishing {
+        // Tell Android to publish the release variant
+        singleVariant("release")
     }
 }
 
@@ -44,7 +52,8 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.material
     implementation libs.okhttp
-    implementation libs.appsonair.android.core
+    implementation libs.appsonair.android.core //live
+   // implementation 'com.appsonair:core:1.0.2' //local
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -59,6 +68,9 @@ afterEvaluate {
                 artifactId = 'appsync'
                 version = '1.0.2'
             }
+        }
+        repositories {
+            mavenLocal()
         }
     }
 }
