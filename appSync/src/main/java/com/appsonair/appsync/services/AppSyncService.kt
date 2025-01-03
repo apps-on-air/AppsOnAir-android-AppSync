@@ -19,12 +19,16 @@ import okhttp3.Request
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
+import android.os.Handler
+import android.os.Looper
+
 
 class AppSyncService {
     companion object {
         private var appId: String = ""
         private var showNativeUI: Boolean = true
         private var isResponseReceived: Boolean = false
+        private var isNetworkConnected: Boolean = false
         private const val TAG = "AppSyncService"
 
         private fun getResponse(
@@ -71,7 +75,7 @@ class AppSyncService {
                 }
             } catch (e: Exception) {
                 callBack?.onFailure(e.message)
-                isResponseReceived = true
+                isResponseReceived = false
                 Log.d(TAG, "getResponse: " + e.message)
             }
         }
@@ -128,29 +132,37 @@ class AppSyncService {
             options: Map<String, Any> = emptyMap(),
             callBack: UpdateCallBack? = null
         ) {
-            val applicationId: String = CoreService.getAppId(context)
-            appId = applicationId
+            Debounce.debounce {
+                val applicationId: String = CoreService.getAppId(context)
+                appId = applicationId
 
-            if (appId.isEmpty()) {
-                Log.d(TAG, "AppId: " + context.getString(R.string.error_something_wrong))
-            } else {
-                if (options.isNotEmpty()
-                    && options.containsKey(key = "showNativeUI")
-                    && options["showNativeUI"] is Boolean
-                ) {
-                    showNativeUI = options["showNativeUI"] as Boolean
-                }
-
-                NetworkService.checkConnectivity(
-                    context
-                ) { isAvailable: Boolean ->
-                    run {
-                        if (isAvailable) {
-                            if (!isResponseReceived) {
-                                callCDNServiceApi(context, callBack)
+                if (appId.isEmpty()) {
+                    Log.d(TAG, "AppId: " + context.getString(R.string.error_something_wrong))
+                } else {
+                    if (options.isNotEmpty()
+                        && options.containsKey(key = "showNativeUI")
+                        && options["showNativeUI"] is Boolean
+                    ) {
+                        showNativeUI = options["showNativeUI"] as Boolean
+                    }
+                    if (isResponseReceived) {
+                        if (isNetworkConnected) {
+                            callCDNServiceApi(context, callBack)
+                        }
+                    } else {
+                        NetworkService.checkConnectivity(
+                            context
+                        ) { isAvailable: Boolean ->
+                            run {
+                                isNetworkConnected = isAvailable
+                                if (isAvailable ) {
+                                    if (!isResponseReceived) {
+                                        callCDNServiceApi(context, callBack)
+                                    }
+                                } else {
+                                    Log.d(TAG, "Please check your internet connection!")
+                                }
                             }
-                        } else {
-                            Log.d(TAG, "Please check your internet connection!")
                         }
                     }
                 }
@@ -158,3 +170,25 @@ class AppSyncService {
         }
     }
 }
+// Debounce object to handle debounce logic
+object Debounce {
+    private var lastCallTime: Long = 0
+    private const val DEBOUNCE_DELAY_MS = 300L // Adjust the delay as needed
+    private val handler = Handler(Looper.getMainLooper())
+    private var currentTime: Long = 0
+
+    // Function to debounce the provided action
+    fun debounce(action: () -> Unit) {
+        currentTime = System.currentTimeMillis()
+        // Check if enough time has passed since the last call
+        if (currentTime - lastCallTime > DEBOUNCE_DELAY_MS) {
+            // Remove any pending callbacks
+            handler.removeCallbacksAndMessages(null)
+            handler.postDelayed({
+                action.invoke()
+                lastCallTime = System.currentTimeMillis()
+            }, DEBOUNCE_DELAY_MS)
+        }
+    }
+}
+
