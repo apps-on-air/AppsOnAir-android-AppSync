@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.appsonair"
-version = "1.0.4"
+version = "1.0.5"
 
 android {
     namespace 'com.appsonair.appsync'
@@ -13,7 +13,7 @@ android {
     defaultConfig {
         minSdk 24
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0.5"
         android {
             buildConfigField 'String', 'BASE_URL', BASE_URL
             buildConfigField 'String', 'CDN_BASE_URL', CDN_BASE_URL
@@ -52,8 +52,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.material
     implementation libs.okhttp
-    implementation libs.appsonair.android.core //live
-    //implementation 'com.appsonair:core:1.0.3' //local
+    implementation libs.appsonair.android.core
     testImplementation libs.junit
     androidTestImplementation libs.androidx.junit
     androidTestImplementation libs.androidx.espresso.core
@@ -66,7 +65,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.appsonair'
                 artifactId = 'appsync'
-                version = '1.0.4'
+                version = '1.0.5'
             }
         }
         repositories {
