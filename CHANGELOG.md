@@ -1,6 +1,15 @@
-## 1.0.5
+## 1.1.0
 
-* Provided common response for update alert across platform
+* Standardized the update alert response across platforms.
+
+**Breaking Changes:**
+* There are breaking changes in the sync method. Moving forward, the update response will be shared based on the respective Android and iOS platforms. Detailed changes to the properties are outlined below.
+
+    * Replaced `androidBuildNumber` with `buildNumber`
+    * Replaced `isAndroidUpdate` with `isUpdateEnabled`
+    * Replaced `isAndroidForcedUpdate` with `isForcedUpdate`
+    * Replaced `androidMinBuildVersion` with `minBuildVersion`
+    * Replaced `androidUpdateLink` with `updateLink`
 
 ## 1.0.4
 
