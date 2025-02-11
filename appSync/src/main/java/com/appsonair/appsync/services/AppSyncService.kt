@@ -68,7 +68,18 @@ class AppSyncService {
                             context.startActivity(intent)
                         }
                     }
-                    callBack?.onSuccess(myResponse)
+
+                    // Creating a new object with modified keys
+                    val newUpdateData = JSONObject().apply {
+                        put("isUpdateEnabled", updateData.getBoolean("isAndroidUpdate"))
+                        put("buildNumber", updateData.getString("androidBuildNumber"))
+                        put("minBuildVersion", updateData.optString("androidMinBuildVersion", ""))
+                        put("updateLink", updateData.getString("androidUpdateLink"))
+                        put("isForcedUpdate", updateData.getBoolean("isAndroidForcedUpdate")) }
+
+                    // Updating the original JSON
+                    jsonObject.put("updateData", newUpdateData)
+                    callBack?.onSuccess(jsonObject.toString())
                     isResponseReceived = true
                 } else if (isFromCDN) {
                     callServiceApi(context, callBack)
