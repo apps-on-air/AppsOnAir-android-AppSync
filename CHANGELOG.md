@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Upgrade Dependency
+
 ## 1.1.0
 
 * Standardized the update alert response across platforms.
