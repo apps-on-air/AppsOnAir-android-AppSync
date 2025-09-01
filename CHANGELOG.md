@@ -1,6 +1,10 @@
+## 1.2.0
+
+* Dependency upgrade.
+
 ## 1.1.1
 
-* Upgrade Dependency
+* Dependency upgrade.
 
 ## 1.1.0
 
