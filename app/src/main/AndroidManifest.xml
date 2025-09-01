@@ -27,7 +27,7 @@
             android:name="com.appsonair.icon"
             android:resource="@mipmap/ic_launcher" />
         <meta-data
-            android:name="appId"
+            android:name="AppsonairAppId"
             android:value="********-****-****-****-************" />
     </application>
 
