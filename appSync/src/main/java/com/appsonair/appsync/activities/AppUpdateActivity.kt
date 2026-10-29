@@ -21,6 +21,12 @@ class AppUpdateActivity : AppCompatActivity() {
     @SuppressLint("NewApi", "DiscouragedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Close quietly if started without update data (e.g. launched directly by the system).
+        val data = intent.getStringExtra("res")
+        if (data.isNullOrEmpty()) {
+            finish()
+            return
+        }
         setContentView(R.layout.activity_app_update)
         try {
             val ai = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
@@ -34,9 +40,7 @@ class AppUpdateActivity : AppCompatActivity() {
                 icon = bundle1.getInt("com.appsonair.icon")
             }
 
-            val bundle = this.intent.extras
-            val data = bundle!!.getString("res") // NullPointerException.
-            val jsonObject = JSONObject(data.toString())
+            val jsonObject = JSONObject(data)
             if (jsonObject.isNull(data)) {
                 val updateData = jsonObject.getJSONObject("updateData")
                 val isAndroidForcedUpdate = updateData.getBoolean("isAndroidForcedUpdate")

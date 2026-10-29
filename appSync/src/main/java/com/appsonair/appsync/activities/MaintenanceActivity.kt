@@ -17,12 +17,15 @@ class MaintenanceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Close quietly if started without maintenance data (e.g. launched directly by the system).
+        val data = intent.getStringExtra("res")
+        if (data.isNullOrEmpty()) {
+            finish()
+            return
+        }
         setContentView(R.layout.activity_maintenance)
         try {
-            val bundle = this.intent.extras
-            val data = bundle!!.getString("res") // NullPointerException.
-
-            val jsonObject = JSONObject(data.toString())
+            val jsonObject = JSONObject(data)
             val isMaintenance = jsonObject.getBoolean("isMaintenance")
             if (isMaintenance) {
                 val linearLayout = findViewById<LinearLayout>(R.id.ll_root)

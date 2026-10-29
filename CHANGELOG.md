@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Fixed a crash in `AppUpdateActivity` and an empty screen in `MaintenanceActivity` when they were started without update data.
+
 ## 1.2.0
 
 * Dependency upgrade.
