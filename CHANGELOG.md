@@ -1,3 +1,7 @@
+## 1.2.2
+
+* Fixed excessive memory use when loading the maintenance image: it is now downsampled to the icon size, the download has timeouts and is cached, and failures no longer crash the app or clear the default icon.
+
 ## 1.2.1
 
 * Fixed a crash in `AppUpdateActivity` and an empty screen in `MaintenanceActivity` when they were started without update data.
