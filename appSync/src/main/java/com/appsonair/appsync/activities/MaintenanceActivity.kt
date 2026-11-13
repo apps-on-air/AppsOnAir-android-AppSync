@@ -14,6 +14,7 @@ import org.json.JSONObject
 
 class MaintenanceActivity : AppCompatActivity() {
     private lateinit var callback: OnBackPressedCallback
+    private var imageTask: DownloadImageTask? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +54,7 @@ class MaintenanceActivity : AppCompatActivity() {
                         txtDesMaintain.setTextColor(Color.parseColor(textColorCode))
                     }
                     if (image.isNotEmpty()) {
-                        DownloadImageTask(imgIcon)
-                            .execute(image)
+                        imageTask = DownloadImageTask(imgIcon).also { it.execute(image) }
                     } else {
                         imgIcon.visibility = View.VISIBLE
                     }
@@ -74,5 +74,11 @@ class MaintenanceActivity : AppCompatActivity() {
         }
 
         onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDestroy() {
+        imageTask?.cancel()
+        imageTask = null
+        super.onDestroy()
     }
 }
